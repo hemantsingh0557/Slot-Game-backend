@@ -3,7 +3,7 @@ import { userService } from "../services/userService.js";
 import { RESPONSE_MESSAGE } from "../utils/messages.js";
 import { generateJWTAccessToken } from "../utils/helperFunctions.js";
 import { ERROR_TYPES } from "../utils/constants.js";
-import { createErrorResponse, createSuccessResponse } from "../utils/commonFunctions/responseHelper.js";
+import { createErrorResponse, createSuccessResponse } from "../utils/commonFunctions/responseUtils.js";
 
 export const otpController = {};
 
