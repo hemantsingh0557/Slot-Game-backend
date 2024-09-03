@@ -38,7 +38,7 @@ const handler = (controller) =>{
         };
         controller(payload)
             .then(async(result) => {
-                res.status(result.statusCode).json(result.data) ;
+                res.status(result.statusCode).json(result) ;
             })
             .catch(async(error) => {
                 res.status(error.statusCode || 500 ).json({ message : error.message }) ;

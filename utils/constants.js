@@ -3,7 +3,7 @@ import path from "path";
 
 
 export const ADMIN = "Admin" ;
-export const REGULAR_USER = "regularUser" ;
+export const REGULAR_USER = "RegularUser" ;
 
 
 

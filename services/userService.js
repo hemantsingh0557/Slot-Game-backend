@@ -2,6 +2,11 @@ import { UserModel } from "../models/userModel.js";
 
 const userService = {};
 
+
+userService.findUserByEmailInDB = async(email) => {
+    return await UserModel.findOne({ email : email });
+};
+
 userService.findUserByIdInDB = async(userId) => {
     return await UserModel.findOne({ userId });
 };
@@ -15,7 +20,7 @@ userService.saveUser = async(userDetailsObject) => {
 };
 
 userService.verifyUser = async(userId) => {
-    await UserModel.findOneAndUpdate({ _id: userId }, { isOtpVerified: true }, { new: true });
+    await UserModel.findByIdAndUpdate(userId, { isOtpVerified: true }, { new: true });
 };
 
 userService.resetPasswordInDb = async(userId, hashedPassword) => {

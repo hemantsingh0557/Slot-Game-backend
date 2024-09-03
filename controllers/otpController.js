@@ -9,11 +9,12 @@ export const otpController = {};
 
 // Send OTP
 otpController.sendOtp = async(payload) => {
-    const { userId, email } = payload;
-    const user = await userService.findUserByIdInDB(userId);
+    const { email } = payload;
+    const user = await userService.findUserByEmailInDB(email);
     if (!user) {
         return createErrorResponse(RESPONSE_MESSAGE.USER_NOT_EXIST, ERROR_TYPES.DATA_NOT_FOUND);
     }
+    const userId = user._id ;
     const sentOtp = await otpService.sendOtp(userId, email);
     if (!sentOtp) {
         return createErrorResponse(RESPONSE_MESSAGE.FAILED_TO_SEND_OTP, ERROR_TYPES.INTERNAL_SERVER_ERROR);
@@ -23,11 +24,12 @@ otpController.sendOtp = async(payload) => {
 
 // Verify OTP
 otpController.verifyOtp = async(payload) => {
-    const { userId, enteredOtp } = payload;
-    const user = await userService.findUserByIdInDB(userId);
+    const { email, enteredOtp } = payload;
+    const user = await userService.findUserByEmailInDB(email);
     if (!user) {
         return createErrorResponse(RESPONSE_MESSAGE.USER_NOT_EXIST, ERROR_TYPES.DATA_NOT_FOUND);
     }
+    const userId = user._id ;
     const verifyOtp = await otpService.verifyOtp(userId, enteredOtp);
     if (!verifyOtp.success) {
         return createErrorResponse(RESPONSE_MESSAGE.INVALID_OTP, ERROR_TYPES.BAD_REQUEST);
