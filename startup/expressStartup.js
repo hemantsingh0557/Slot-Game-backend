@@ -28,12 +28,14 @@ const upload = multer({
 const handler = (controller) =>{
     return (req , res) => {
         const payload = {
-            ...(res.body || {}) ,
-            ...(res.params || {}) ,
-            ...(res.query || {}) ,
-            userId : req.userId ,
-            files : req.files ,
-        } ;
+            ...(req.body || {}),
+            ...(req.query || {}),
+            ...(req.params || {}),
+            userId : req.user ,
+            userRole : req.role ,
+            files: req.files, 
+
+        };
         controller(payload)
             .then(async(result) => {
                 res.status(result.statusCode).json(result.data) ;

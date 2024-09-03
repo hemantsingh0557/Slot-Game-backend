@@ -32,7 +32,7 @@ otpController.verifyOtp = async(payload) => {
     if (!verifyOtp.success) {
         return createErrorResponse(RESPONSE_MESSAGE.INVALID_OTP, ERROR_TYPES.BAD_REQUEST);
     }
-    const jwtPayloadObject = { userId: userId };
+    const jwtPayloadObject = { userId: userId, userRole: user.userRole };
     const token = generateJWTAccessToken(jwtPayloadObject);
     return createSuccessResponse(RESPONSE_MESSAGE.OTP_VERIFIED_SUCCESSFULLY, { userId, token });
 };

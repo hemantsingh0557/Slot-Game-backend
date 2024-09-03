@@ -12,6 +12,8 @@ export const RESPONSE_MESSAGE = {
     SIGNED_IN : "User signed in successfully" ,
     PASSWORD_RESET_FAILED : "Failed to reset password ." ,
     PASSWORD_RESET : "Password has been reset successfully." ,
+
+    NOT_AUTHORISED : "Forbidden: You do not have the required permissions." ,
    
    
     // // otp realted messages
