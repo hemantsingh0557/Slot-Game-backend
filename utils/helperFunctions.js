@@ -10,43 +10,73 @@ export const generateJWTAccessToken = (jwtPayloadObject) => {
     return jwt.sign(jwtPayloadObject, config.auth.jwtSecret , { algorithm: "HS256" , expiresIn: "3600s" });
 };
 
+
+
+
+
+function validateField(schema, field, data, res) {
+    if (schema[field]) {
+        const { error } = schema[field].validate(data);
+        if (error) {
+            res.status(400).json({
+                error: error.details.map((err) => err.message),
+            });
+            return false;
+        }
+    }
+    return true;
+}
+
 export function validateSchema(schema) {
-    return (req , res , next ) => {
-        if( schema.body ) {
-            const { error } = schema.body.validate(req.body) ;
-            if( error ) {
-                res.status(400).json({
-                    error : error.details.map( (err) => err.message ) ,
-                }) ;
-            }
+    return (req, res, next) => {
+        const isBodyValid = validateField(schema, "body", req.body, res);
+        const isParamsValid = validateField(schema, "params", req.params, res);
+        const isQueryValid = validateField(schema, "query", req.query, res);
+        const isHeadersValid = validateField(schema, "headers", req.headers, res);
+        if (isBodyValid && isParamsValid && isQueryValid && isHeadersValid) {
+            next();
         }
-        if( schema.params ) {
-            const { error } = schema.params.validate(req.params) ;
-            if( error ) {
-                res.status(400).json({
-                    error : error.details.map( (err) => err.message ) ,
-                }) ;
-            }
-        }
-        if( schema.query ) {
-            const { error } = schema.query.validate(req.query) ;
-            if( error ) {
-                res.status(400).json({
-                    error : error.details.map( (err) => err.message ) ,
-                }) ;
-            }
-        }
-        if( schema.headers ) {
-            const { error } = schema.headers.validate(req.headers) ;
-            if( error ) {
-                res.status(400).json({
-                    error : error.details.map( (err) => err.message ) ,
-                }) ;
-            }
-        }
-        next() ;
-    } ;
-} ;
+    };
+}
+
+
+// export function validateSchema(schema) {
+//     return (req , res , next ) => {
+//         if( schema.body ) {
+//             const { error } = schema.body.validate(req.body) ;
+//             if( error ) {
+//                 res.status(400).json({
+//                     error : error.details.map( (err) => err.message ) ,
+//                 }) ;
+//             }
+//         }
+//         if( schema.params ) {
+//             const { error } = schema.params.validate(req.params) ;
+//             if( error ) {
+//                 res.status(400).json({
+//                     error : error.details.map( (err) => err.message ) ,
+//                 }) ;
+//             }
+//         }
+//         if( schema.query ) {
+//             const { error } = schema.query.validate(req.query) ;
+//             if( error ) {
+//                 res.status(400).json({
+//                     error : error.details.map( (err) => err.message ) ,
+//                 }) ;
+//             }
+//         }
+//         if( schema.headers ) {
+//             const { error } = schema.headers.validate(req.headers) ;
+//             if( error ) {
+//                 res.status(400).json({
+//                     error : error.details.map( (err) => err.message ) ,
+//                 }) ;
+//             }
+//         }
+//         next() ;
+//     } ;
+// } ;
 
 
 

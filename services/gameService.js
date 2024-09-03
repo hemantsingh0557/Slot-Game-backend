@@ -48,7 +48,7 @@ export const gameService = {} ;
 // };
 
 // for(let i=0; i<10; i++) {
-//     const result = await simulateGame(100 , betAmount ) ;
+//     const result = await simulateGame(100 , 5 ) ;
 //     console.log( result ) ;
 // }
 
@@ -181,4 +181,12 @@ gameService.executeSpinInDb = async(userId, betAmount) => {
         reel3,
     };
     return response;
+
+
+    // for(let i=0; i<10; i++) {
+    //     const randomNumber = Math.floor(Math.random()*100) ;
+    //     const result = await simulateGame(100 , randomNumber ) ;
+    //     console.log( result ) ;
+    // }
+    // return 0 ;
 };
