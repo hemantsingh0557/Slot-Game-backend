@@ -4,11 +4,12 @@ import cors from "cors" ;
 import { allRoutes } from "../routes/index.js";
 import multer from "multer" ;
 import path from "path";
-import { validateSchema } from "../utils/helperFunctions.js";
+import { fileFilter, validateSchema } from "../utils/helperFunctions.js";
 import { authenticateToken } from "../services/authServer.js";
+import { UPLOAD_FILES_DESTINATION } from "../utils/constants.js";
 
 const storage = multer.diskStorage({
-    destination : "" ,
+    destination : UPLOAD_FILES_DESTINATION ,
     filename : (res , file , cb) => {
         cb(null , file.fieldname + "-" + Date.now() + path.extname(file.originalname) ) ;
     } ,
@@ -17,26 +18,26 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage : storage ,
     limits : 1000000 ,
-    // fileFilter : fileFilter 
+    fileFilter : fileFilter , 
 }).single("imageFile") ;
 
 
 
 
-const handler = async(controller) => {
-    return (req ,res ) => {
+const handler = (controller) =>{
+    return (req , res) => {
         const payload = {
-            ...(req.body || {} ) ,
-            ...(req.params || {} ) ,
-            ...(req.query || {} ) ,
-            userID : req.userID ,
+            ...(res.body || {}) ,
+            ...(res.params || {}) ,
+            ...(res.query || {}) ,
+            userId : req.userId ,
             files : req.files ,
         } ;
         controller(payload)
-            .then( (result) => {
+            .then(async(result) => {
                 res.status(result.statusCode).json(result.data) ;
-            } )
-            .catch((error) => {
+            })
+            .catch(async(error) => {
                 res.status(error.statusCode || 500 ).json({ message : error.message }) ;
             }) ;
     } ;
@@ -45,12 +46,12 @@ const handler = async(controller) => {
 export async function expressStartUp(app) {
     app.use( express.json() ) ;
     app.use( cors() ) ;
-    app.use( "public" , express.static("public") ) ;
+    app.use( "filesFolder" , express.static("filesFolder") ) ;
     app.get("/", (req, res) => {
         res.send("This is the backend of the slot game.");
     });
     allRoutes.forEach( (route) => {
-        const { method , path , schema , auth = false , controller , imagesFiles = false } = route ;
+        const { method, path, schema = {}, auth = false, controller , imagesFiles } = route;
         const middleware = [] ;
         if( schema ) {
             middleware.push(validateSchema(schema)) ;
@@ -63,7 +64,7 @@ export async function expressStartUp(app) {
         }
         app[method](path , ...middleware , handler(controller) ) ;
     }) ;
-}
+} ;
 
 
 

@@ -1,5 +1,14 @@
 
+import jwt from "jsonwebtoken" ; 
+import { config } from "../config/index.js";
+import { ALLOWED_FILE_EXTENTION, FILE_ERROR_MESSAGE } from "./constants.js";
+import path from "path";
 
+
+
+export const generateJWTAccessToken = (jwtPayloadObject) => {
+    return jwt.sign(jwtPayloadObject, config.auth.jwtSecret , { algorithm: "HS256" , expiresIn: "600s" });
+};
 
 export function validateSchema(schema) {
     return (req , res , next ) => {
@@ -40,6 +49,23 @@ export function validateSchema(schema) {
 } ;
 
 
+
+
+
+
+const validateFileExtension = (filename) => {
+    const fileExtension = path.extname(filename).toLowerCase();
+    return ALLOWED_FILE_EXTENTION.includes(fileExtension);
+};
+
+export const fileFilter = (req, file, cb) => {
+    if (validateFileExtension(file.originalname)) {
+        cb(null, true); 
+    } 
+    else {
+        cb(new Error(FILE_ERROR_MESSAGE), false); 
+    }
+};
 
 
 
