@@ -18,4 +18,3 @@ gameController.spinGame = async(payload) => {
     } 
     return createSuccessResponse( RESPONSE_MESSAGE.SPIN_COMPLETED , result ) ;
 } ;
-

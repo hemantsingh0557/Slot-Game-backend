@@ -43,6 +43,8 @@ export const RESPONSE_MESSAGE = {
     PAYLINE_DELETED : "Payline deleted ",
     PAYLINE_NOT_UPDATED : "Payline not updated ",
     PAYLINE_UPDATED : "Payline updated ",
+    NEW_SYMBOL_NOT_SAVED : "New symbol is not saved" ,
+    NEW_SYMBOL_SAVED : "New symbol is saved" ,
 
     // //  game play related messages
     SPIN_FAILED : "Spin failed" ,

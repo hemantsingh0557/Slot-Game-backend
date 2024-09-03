@@ -5,6 +5,15 @@ import { RESPONSE_MESSAGE } from "../utils/messages.js";
 
 export const adminController = {};
 
+adminController.addNewSymbol = async(payload) => {
+    const { symbolCode, symbolName, symbolImage, symbolProbability , description } = payload; 
+    const savedNewSymbol = await adminService.addNewSymbolInDb({ symbolCode, symbolName, symbolImage, symbolProbability , description });
+    if (!savedNewSymbol) {
+        return createErrorResponse(RESPONSE_MESSAGE.NEW_SYMBOL_NOT_SAVED, ERROR_TYPES.INTERNAL_SERVER_ERROR);
+    }
+    return createSuccessResponse(RESPONSE_MESSAGE.NEW_SYMBOL_SAVED, savedNewSymbol);
+};
+
 adminController.addPayline = async(payload) => {
     const { reel1, reel2, reel3, payoutMultiplier , description } = payload; 
     const savePayline = await adminService.savePaylineToDb({ reel1, reel2, reel3, payoutMultiplier , description });

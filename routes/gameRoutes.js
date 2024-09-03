@@ -16,10 +16,3 @@ export const gameRoutes = [
         controller : gameController.spinGame ,
     } ,
 ] ;
-
-
-
-
-
-
-

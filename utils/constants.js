@@ -33,3 +33,11 @@ export const FILE_ERROR_MESSAGE = "Invalid file type. Only JPG, JPEG, GIF, PNG, 
 
 
 
+
+
+
+export const REEL_COUNT = 3 ; // // how many total reels in teh fronend
+export const REEL_SYMBOL_COUNT = 10 ; // // how many symbols or obejcts in each reel
+export const PAYLINE_REEL_SYMBOL_COUNT = 3 ; // // how many symbols or obejct in payline reel 
+
+

@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 const paylineSchema = new mongoose.Schema({
-    reel1: {
+    // // here each reel length will be equal to PAYLINE_REEL_SYMBOL_COUNT (see in constant file)
+    reel1: { 
         type: [Number], 
         required: true,
     },
