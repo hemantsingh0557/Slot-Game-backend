@@ -19,7 +19,6 @@ export const userRoutes = [
             }).required(),
         },
         auth : false ,
-        imagesFiles : true ,
         controller : userController.userSignUp,
     },
     {
