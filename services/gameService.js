@@ -7,7 +7,10 @@ import { userService } from "./userService.js";
 
 export const gameService = {} ;
 
-
+// for(let i=0; i<10; i++) {
+//     const result = await simulateGame(100 , 5 ) ;
+//     console.log( result ) ;
+// }
 
 // const simulateGame = async(numSpins, betAmount) => {
 //     const allSymbols = await SymbolModel.find({});
@@ -47,10 +50,6 @@ export const gameService = {} ;
 //     return { totalPayout, totalBet, rtp };
 // };
 
-// for(let i=0; i<10; i++) {
-//     const result = await simulateGame(100 , 5 ) ;
-//     console.log( result ) ;
-// }
 
 
 
@@ -82,7 +81,7 @@ function generateReel(allSymbols) {
     }
     const reel = [];
     for (let i = 0; i < REEL_SYMBOL_COUNT; i++) {
-        const useWildcard = Math.random() < 0.40 ; 
+        const useWildcard = Math.random() < 40 ; 
         const weightedSymbols = useWildcard ? weightedWildcards : weightedNonWildcards;
         const totalWeight = useWildcard ? totalWeightWildcards : totalWeightNonWildcards;
         reel.push(pickSymbol(weightedSymbols, totalWeight));
