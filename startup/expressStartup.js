@@ -7,6 +7,7 @@ import path from "path";
 import { fileFilter, validateSchema } from "../utils/helperFunctions.js";
 import { authenticateToken } from "../services/authServer.js";
 import { UPLOAD_FILES_DESTINATION } from "../utils/constants.js";
+import { authorizeRole } from "../services/authorizeRole.js";
 
 const storage = multer.diskStorage({
     destination : UPLOAD_FILES_DESTINATION ,
@@ -51,13 +52,16 @@ export async function expressStartUp(app) {
         res.send("This is the backend of the slot game.");
     });
     allRoutes.forEach( (route) => {
-        const { method, path, schema = {}, auth = false, controller , imagesFiles } = route;
+        const { method, path, schema = {}, auth = false, roles = [], controller, imagesFiles } = route;
         const middleware = [] ;
         if( schema ) {
             middleware.push(validateSchema(schema)) ;
         }
         if( auth ) {
             middleware.push(authenticateToken) ;
+        }
+        if (roles.length) {
+            middleware.push(authorizeRole(...roles));
         }
         if( imagesFiles ) {
             middleware.push(upload) ;

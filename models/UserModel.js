@@ -1,5 +1,6 @@
 
 import mongoose from "mongoose" ;
+import { ADMIN, REGULAR_USER } from "../utils/constants.js";
 
 const userSchema = new mongoose.Schema({
     name : {
@@ -32,6 +33,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: false ,
     } ,
+    userRole :{
+        type : String ,
+        enum: [ ADMIN , REGULAR_USER ],
+        default : REGULAR_USER ,
+    },
 } , { timestamps : true } );
 
 

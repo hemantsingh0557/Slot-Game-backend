@@ -2,6 +2,10 @@ import path from "path";
 
 
 
+export const ADMIN = "Admin" ;
+export const REGULAR_USER = "regularUser" ;
+
+
 
 
 export const UPLOAD_FILES_DESTINATION = path.join(process.cwd(), "filesFolder");
