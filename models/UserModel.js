@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
         enum: [ ADMIN , REGULAR_USER ],
         default : REGULAR_USER ,
     },
+    userCredit :{
+        type : Number ,
+        default : 1000 ,
+    },
 } , { timestamps : true } );
 
 

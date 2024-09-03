@@ -34,5 +34,5 @@ otpController.verifyOtp = async(payload) => {
     }
     const jwtPayloadObject = { userId: userId, userRole: user.userRole };
     const token = generateJWTAccessToken(jwtPayloadObject);
-    return createSuccessResponse(RESPONSE_MESSAGE.OTP_VERIFIED_SUCCESSFULLY, { userId, token });
+    return createSuccessResponse(RESPONSE_MESSAGE.OTP_VERIFIED_SUCCESSFULLY, { user , token });
 };
