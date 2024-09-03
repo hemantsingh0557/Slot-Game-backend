@@ -33,8 +33,7 @@ const handler = (controller) =>{
             ...(req.params || {}),
             userId : req.user ,
             userRole : req.role ,
-            files: req.files, 
-
+            files: req.file, 
         };
         controller(payload)
             .then(async(result) => {
@@ -54,7 +53,7 @@ export async function expressStartUp(app) {
         res.send("This is the backend of the slot game.");
     });
     allRoutes.forEach( (route) => {
-        const { method, path, schema = {}, auth = false, roles = [], controller, imagesFiles } = route;
+        const { method, path, schema = {}, auth = false, roles = [], controller, uploadFiles = false } = route;
         const middleware = [] ;
         if( schema ) {
             middleware.push(validateSchema(schema)) ;
@@ -65,7 +64,7 @@ export async function expressStartUp(app) {
         if (roles.length) {
             middleware.push(authorizeRole(...roles));
         }
-        if( imagesFiles ) {
+        if( uploadFiles ) {
             middleware.push(upload) ;
         }
         app[method](path , ...middleware , handler(controller) ) ;

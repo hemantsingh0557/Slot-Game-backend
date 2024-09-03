@@ -12,6 +12,7 @@ export const adminRoutes = [
                 symbolImage: Joi.string().uri().required(), 
                 symbolProbability: Joi.number().min(0.01).max(1).precision(2).required(), 
                 isWildCard : Joi.boolean().default(false) ,
+                isBonusCard : Joi.boolean().default(false) ,
                 description: Joi.string().optional(), 
             }),
         },
@@ -54,11 +55,15 @@ export const adminRoutes = [
                 paylineId: Joi.string().hex().length(24).required(),
             }),
             body: Joi.object({
-                reel1: Joi.array().items(Joi.number().integer().min(0)).required(),
-                reel2: Joi.array().items(Joi.number().integer().min(0)).required(),
-                reel3: Joi.array().items(Joi.number().integer().min(0)).required(),
-                payoutMultiplier: Joi.number().integer().min(1).required(), 
-                description: Joi.string(),
+                paylineName: Joi.string().required(),
+                paylineCells: Joi.array().items(
+                    Joi.object({
+                        cellPosition: Joi.string().required(), 
+                        symbolId: Joi.string().required() ,
+                    }) ,
+                ).required(),
+                payoutMultiplier: Joi.number().integer().min(1).required(),
+                description: Joi.string().optional() ,
             }),
         },
         auth: true,

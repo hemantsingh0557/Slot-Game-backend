@@ -7,7 +7,7 @@ import nodeMailer from "nodemailer" ;
 
 
 export const generateJWTAccessToken = (jwtPayloadObject) => {
-    return jwt.sign(jwtPayloadObject, config.auth.jwtSecret , { algorithm: "HS256" , expiresIn: "600s" });
+    return jwt.sign(jwtPayloadObject, config.auth.jwtSecret , { algorithm: "HS256" , expiresIn: "3600s" });
 };
 
 export function validateSchema(schema) {

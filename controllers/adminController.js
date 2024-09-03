@@ -6,8 +6,8 @@ import { RESPONSE_MESSAGE } from "../utils/messages.js";
 export const adminController = {};
 
 adminController.addNewSymbol = async(payload) => {
-    const { symbolName, symbolImage, symbolProbability, isWildCard, description } = payload; 
-    const savedNewSymbol = await adminService.addNewSymbolInDb({ symbolName, symbolImage, symbolProbability, isWildCard, description });
+    const { symbolName, symbolImage, symbolProbability, isWildCard, isBonusCard, description } = payload; 
+    const savedNewSymbol = await adminService.addNewSymbolInDb({ symbolName, symbolImage, symbolProbability, isWildCard, isBonusCard, description });
     if (!savedNewSymbol) {
         return createErrorResponse(RESPONSE_MESSAGE.NEW_SYMBOL_NOT_SAVED, ERROR_TYPES.INTERNAL_SERVER_ERROR);
     }

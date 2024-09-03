@@ -9,8 +9,8 @@ fileController.uploadFile = async(payload) => {
     if (!files || files.length === 0) {
         return createErrorResponse(RESPONSE_MESSAGE.NO_FILES_PROVIDED, ERROR_TYPES.BAD_REQUEST , null );
     }
-    const filePaths = files.map((file) => file.path);
-    if (filePaths.some((path) => path === null)) {
+    const filePaths = files.path;
+    if (filePaths === null) {
         return createErrorResponse(RESPONSE_MESSAGE.FAILED_TO_UPLOAD_FILE, ERROR_TYPES.BAD_REQUEST , null );
     }
     return createSuccessResponse(RESPONSE_MESSAGE.FILE_UPLOADED_SUCCESSFULLY, { filePaths });
