@@ -1,12 +1,11 @@
 
 import express from "express" ;
-import { dbConnection } from "../startup/dbConnection.js";
-import { expressStartUp } from "../startup/expressStartup.js";
-import { config } from "../config/index.js";
+import { config } from "./config/index.js";
+import { dbConnection } from "./startup/dbConnection.js";
+import { expressStartUp } from "./startup/expressStartup.js";
 
 
 const app =  express() ;
-
 
 
 async function startServer() {
