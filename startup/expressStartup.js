@@ -1,6 +1,6 @@
 
-import express  from  "express" ;
-import cors  from  "cors" ;
+import express from "express" ;
+import cors from "cors" ;
 import { allRoutes } from "../routes/index.js";
 import multer from "multer" ;
 import path from "path";
@@ -23,8 +23,8 @@ const upload = multer({
 
 
 
-const  handler = async(controller) => {
-    return  (req ,res ) => {
+const handler = async(controller) => {
+    return (req ,res ) => {
         const payload = {
             ...(req.body || {} ) ,
             ...(req.params || {} ) ,
@@ -38,19 +38,19 @@ const  handler = async(controller) => {
             } )
             .catch((error) => {
                 res.status(error.statusCode || 500 ).json({ message : error.message }) ;
-            })
-    }
-} 
+            }) ;
+    } ;
+} ;
 
 export async function expressStartUp(app) {
     app.use( express.json() ) ;
     app.use( cors() ) ;
-    app.use( "public" , express.static("public") )
+    app.use( "public" , express.static("public") ) ;
     app.get("/", (req, res) => {
         res.send("This is the backend of the slot game.");
     });
     allRoutes.forEach( (route) => {
-        const {  method , path , schema , auth = false , controller , imagesFiles = false  } = route ;
+        const { method , path , schema , auth = false , controller , imagesFiles = false } = route ;
         const middleware = [] ;
         if( schema ) {
             middleware.push(validateSchema(schema)) ;
@@ -62,7 +62,7 @@ export async function expressStartUp(app) {
             middleware.push(upload) ;
         }
         app[method](path , ...middleware , handler(controller) ) ;
-    })
+    }) ;
 }
 
 

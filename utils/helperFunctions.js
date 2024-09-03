@@ -1,8 +1,3 @@
-import { error } from "console";
-import Joi from "joi";
-
-
-
 
 
 
@@ -12,7 +7,7 @@ export function validateSchema(schema) {
             const { error } = schema.body.validate(req.body) ;
             if( error ) {
                 res.status(400).json({
-                    error : error.details.map( (err) => err.message ) 
+                    error : error.details.map( (err) => err.message ) ,
                 }) ;
             }
         }
@@ -20,7 +15,7 @@ export function validateSchema(schema) {
             const { error } = schema.params.validate(req.params) ;
             if( error ) {
                 res.status(400).json({
-                    error : error.details.map( (err) => err.message ) 
+                    error : error.details.map( (err) => err.message ) ,
                 }) ;
             }
         }
@@ -28,7 +23,7 @@ export function validateSchema(schema) {
             const { error } = schema.query.validate(req.query) ;
             if( error ) {
                 res.status(400).json({
-                    error : error.details.map( (err) => err.message ) 
+                    error : error.details.map( (err) => err.message ) ,
                 }) ;
             }
         }
@@ -36,12 +31,12 @@ export function validateSchema(schema) {
             const { error } = schema.headers.validate(req.headers) ;
             if( error ) {
                 res.status(400).json({
-                    error : error.details.map( (err) => err.message ) 
+                    error : error.details.map( (err) => err.message ) ,
                 }) ;
             }
         }
         next() ;
-    }
+    } ;
 } ;
 
 

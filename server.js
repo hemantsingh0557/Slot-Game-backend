@@ -5,7 +5,7 @@ import { dbConnection } from "./startup/dbConnection.js";
 import { expressStartUp } from "./startup/expressStartup.js";
 
 
-const app =  express() ;
+const app = express() ;
 
 
 async function startServer() {
@@ -15,8 +15,8 @@ async function startServer() {
 
 startServer().then( () => {
     app.listen( config.server.port , () => {
-        console.log(`Server is running on http://localhost:${config.server.port}`)    
-    } )
+        console.log(`Server is running on http://localhost:${config.server.port}`) ;
+    } ) ;
 }).catch( (error) => {
     console.error("Failed to start the server:", error);
-})
+}) ;

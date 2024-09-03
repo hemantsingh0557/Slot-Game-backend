@@ -1,7 +1,7 @@
-import Joi from 'joi' ;
+import Joi from "joi" ;
 
 
-export const userRoutes =  [
+export const userRoutes = [
     {
         method : "path" ,
         path : "/user/signup" ,
@@ -13,4 +13,4 @@ export const userRoutes =  [
         auth : false ,
         // controller : userController.signup ,
     } ,
-]
+] ;
