@@ -35,8 +35,14 @@ export const RESPONSE_MESSAGE = {
     ERROR_DURING_FILE_SAVE : "Error during file save" ,
     
 
-    
-    
+    // // admin activity
+    PAYLINE_NOT_SAVED : "Payline is not saved " ,
+    PAYLINE_SAVED : "Payline saved " ,
+    PAYLINE_NOT_FOUND : "No Payline found ",
+    PAYLINE_FETCHED : "Payline fetched ",
+    PAYLINE_DELETED : "Payline deleted ",
+    PAYLINE_NOT_UPDATED : "Payline not updated ",
+    PAYLINE_UPDATED : "Payline updated ",
     
 
 } ;   
