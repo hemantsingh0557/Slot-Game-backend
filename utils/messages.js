@@ -49,6 +49,7 @@ export const RESPONSE_MESSAGE = {
     // //  game play related messages
     SPIN_FAILED : "Spin failed" ,
     SPIN_COMPLETED : "Spin completed" ,
+    NO_WIN : "No payline matches" ,
     
 
 } ;   

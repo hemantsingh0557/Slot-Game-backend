@@ -6,7 +6,7 @@ import { SymbolModel } from "../models/SymbolModel.js";
 export const adminService = {};
 
 adminService.addNewSymbolInDb = async(symbolData) => {
-    const newSymbolData = await SymbolModel(symbolData) ;
+    const newSymbolData = new SymbolModel(symbolData); 
     const savedNewSymbolData = await newSymbolData.save();
     return savedNewSymbolData;
 };

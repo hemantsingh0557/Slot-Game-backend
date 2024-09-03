@@ -6,8 +6,8 @@ import { RESPONSE_MESSAGE } from "../utils/messages.js";
 export const adminController = {};
 
 adminController.addNewSymbol = async(payload) => {
-    const { symbolCode, symbolName, symbolImage, symbolProbability , description } = payload; 
-    const savedNewSymbol = await adminService.addNewSymbolInDb({ symbolCode, symbolName, symbolImage, symbolProbability , description });
+    const { symbolName, symbolImage, symbolProbability, description } = payload; 
+    const savedNewSymbol = await adminService.addNewSymbolInDb({ symbolName, symbolImage, symbolProbability, description });
     if (!savedNewSymbol) {
         return createErrorResponse(RESPONSE_MESSAGE.NEW_SYMBOL_NOT_SAVED, ERROR_TYPES.INTERNAL_SERVER_ERROR);
     }
@@ -15,8 +15,8 @@ adminController.addNewSymbol = async(payload) => {
 };
 
 adminController.addPayline = async(payload) => {
-    const { reel1, reel2, reel3, payoutMultiplier , description } = payload; 
-    const savePayline = await adminService.savePaylineToDb({ reel1, reel2, reel3, payoutMultiplier , description });
+    const { paylineName , paylineCells , payoutMultiplier , description } = payload; 
+    const savePayline = await adminService.savePaylineToDb({ paylineName , paylineCells , payoutMultiplier , description });
     if (!savePayline) {
         return createErrorResponse(RESPONSE_MESSAGE.PAYLINE_NOT_SAVED, ERROR_TYPES.INTERNAL_SERVER_ERROR);
     }

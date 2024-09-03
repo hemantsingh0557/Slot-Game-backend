@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { ADMIN, PAYLINE_REEL_SYMBOL_COUNT } from "../utils/constants.js";
+import { ADMIN } from "../utils/constants.js";
 import { adminController } from "../controllers/adminController.js";
 
 export const adminRoutes = [
@@ -8,7 +8,6 @@ export const adminRoutes = [
         path: "/addNewSymbol",
         schema: {
             body: Joi.object({
-                symbolCode: Joi.string().alphanum().required(), 
                 symbolName: Joi.string().min(1).max(50).required(), 
                 symbolImage: Joi.string().uri().required(), 
                 symbolProbability: Joi.number().min(0.01).max(1).precision(2).required(), 
@@ -18,23 +17,27 @@ export const adminRoutes = [
         auth: true,
         roles: [ADMIN],
         controller: adminController.addNewSymbol,
-    } ,
+    },
     {
         method: "post",
         path: "/addPayline",
         schema: {
             body: Joi.object({
-                reel1: Joi.array().items(Joi.number().integer().min(0)).length(PAYLINE_REEL_SYMBOL_COUNT).required(),
-                reel2: Joi.array().items(Joi.number().integer().min(0)).length(PAYLINE_REEL_SYMBOL_COUNT).required(),
-                reel3: Joi.array().items(Joi.number().integer().min(0)).length(PAYLINE_REEL_SYMBOL_COUNT).required(),
-                payoutMultiplier: Joi.number().integer().min(1).required(), 
-                description : Joi.string() ,
+                paylineName: Joi.string().required(),
+                paylineCells: Joi.array().items(
+                    Joi.object({
+                        cellPosition: Joi.string().required(), 
+                        symbolId: Joi.string().required() ,
+                    }) ,
+                ).required(),
+                payoutMultiplier: Joi.number().integer().min(1).required(),
+                description: Joi.string().optional() ,
             }),
         },
         auth: true,
         roles: [ADMIN],
         controller: adminController.addPayline,
-    },
+    } ,
     {
         method: "get",
         path: "/getAllPayline",

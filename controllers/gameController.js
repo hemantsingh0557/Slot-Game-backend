@@ -7,14 +7,14 @@ import { RESPONSE_MESSAGE } from "../utils/messages.js";
 
 export const gameController = {} ;
 
-gameController.spinGame = async(payload) => {
+gameController.executeSpin = async(payload) => {
     const { userId , betAmount } = payload ;
-    const result = await gameService.processSpinGame( userId , betAmount ) ;
-    if( ! result ) {
-        return createErrorResponse( RESPONSE_MESSAGE.SPIN_FAILED , ERROR_TYPES.INTERNAL_SERVER_ERROR ) ;
-    } 
-    if( result.length === 0 ) {
-        return createErrorResponse( RESPONSE_MESSAGE.SPIN_COMPLETED , ERROR_TYPES.DATA_NOT_FOUND ) ;
-    } 
-    return createSuccessResponse( RESPONSE_MESSAGE.SPIN_COMPLETED , result ) ;
+    const result = await gameService.executeSpinInDb(userId, betAmount);
+    if (!result || result.totalReward === undefined) {
+        return createErrorResponse(RESPONSE_MESSAGE.SPIN_FAILED, ERROR_TYPES.INTERNAL_SERVER_ERROR);
+    }
+    if (result.totalReward === 0) {
+        return createSuccessResponse(RESPONSE_MESSAGE.NO_WIN, result);
+    }
+    return createSuccessResponse(RESPONSE_MESSAGE.SPIN_COMPLETED, result);
 } ;

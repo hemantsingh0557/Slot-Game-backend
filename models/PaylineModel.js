@@ -1,25 +1,28 @@
 import mongoose from "mongoose";
 
+const paylineCellSchema = new mongoose.Schema({
+    cellPosition: { 
+        type: String, 
+        required: true ,
+    },
+    symbolId: { 
+        type: String, 
+        required: true ,
+    } ,
+});
+
 const paylineSchema = new mongoose.Schema({
-    // // here each reel length will be equal to PAYLINE_REEL_SYMBOL_COUNT (see in constant file)
-    reel1: { 
-        type: [Number], 
+    paylineName: {
+        type: String,
         required: true,
     },
-    reel2: {
-        type: [Number], 
-        required: true,
-    },
-    reel3: {
-        type: [Number], 
-        required: true,
-    },
+    paylineCells: [paylineCellSchema], 
     payoutMultiplier: {
-        type: Number, 
+        type: Number,
         required: true,
     },
     description: {
-        type: String, 
+        type: String,
         default: "",
     },
 });
