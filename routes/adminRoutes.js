@@ -11,6 +11,7 @@ export const adminRoutes = [
                 symbolName: Joi.string().min(1).max(50).required(), 
                 symbolImage: Joi.string().uri().required(), 
                 symbolProbability: Joi.number().min(0.01).max(1).precision(2).required(), 
+                isWildCard : Joi.boolean().default(false) ,
                 description: Joi.string().optional(), 
             }),
         },

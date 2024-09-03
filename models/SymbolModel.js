@@ -4,6 +4,7 @@ const symbolSchema = new mongoose.Schema({
     symbolName: { type: String, required: true },
     symbolImage: { type: String, required: true },
     symbolProbability: { type: Number, required: true, min: 0.01, max: 1 }, 
+    isWildCard : { type : Boolean , default : false } ,
     description: { type: String, default: "" }, 
 }, { timestamps: true }); 
 

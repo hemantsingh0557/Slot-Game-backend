@@ -33,4 +33,14 @@ userService.resetPasswordInDb = async(userId, hashedPassword) => {
     return { success: true };
 };
 
+
+
+userService.incrementUserCredits = async( userId , betAmount , totalReward ) => {
+    return await UserModel.findByIdAndUpdate(
+        userId,
+        { $inc: { userCredit: totalReward - betAmount } },
+        { new: true } ,
+    );
+} ;
+
 export { userService };
